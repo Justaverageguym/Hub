@@ -74,11 +74,11 @@ local RayfieldLibrary = {
 
       SearchIcon = Color3.fromRGB(240,240,240),
       XIcon = Color3.fromRGB(240, 240, 240),
-      Divider = Color3.fromRGB(0,0,0),
+      Divider = Color3.fromRGB(240,240,240),
       LoadingBackground = Color3.fromRGB(20,20,20),
 			Background = Color3.fromRGB(20,20,20),
 			Topbar = Color3.fromRGB(150, 0, 0),
-			Shadow = Color3.fromRGB(255,255,255),
+			Shadow = Color3.fromRGB(40,40,40),
 
        	 NotificationBackground = Color3.fromRGB(20, 20, 20),
     		 NotificationActionsBackground = Color3.fromRGB(230, 230, 230),
@@ -92,7 +92,7 @@ local RayfieldLibrary = {
 						ElementBackground = Color3.fromRGB(35, 35, 35),
 						ElementBackgroundHover = Color3.fromRGB(40, 40, 40),
 						SecondaryElementBackground = Color3.fromRGB(25, 25, 25), -- For labels and paragraphs
-						ElementStroke = Color3.fromRGB(255,255,255),
+						ElementStroke = Color3.fromRGB(50, 50, 50),
 						SecondaryElementStroke = Color3.fromRGB(40, 40, 40), -- For labels and paragraphs
 			
 						SliderBackground = Color3.fromRGB(43, 105, 159),
