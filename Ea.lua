@@ -96,7 +96,7 @@ local RayfieldLibrary = {
 						
 									SliderBackground = Color3.fromRGB(150,0,0),
 									SliderProgress = Color3.fromRGB(150,0,0),
-									SliderStroke = Color3.fromRGB(48, 119, 177),
+									SliderStroke = Color3.fromRGB(150,0,0),
 						
 									ToggleBackground = Color3.fromRGB(30, 30, 30),
 									ToggleEnabled = Color3.fromRGB(0, 146, 214),
@@ -374,7 +374,7 @@ local function AddDraggingFunctionality(DragPoint, Main)
 	pcall(function()
 		local Dragging, DragInput, MousePos, FramePos = false,false,false,false
 		DragPoint.InputBegan:Connect(function(Input)
-			if Input.UserInputType == Enum.UserInputType.MouseButton1 then
+			if Input.UserInputType == Enum.UserInputType.MouseButton1 or Input.UserInputType == Enum.UserInputType.Touch then
 				Dragging = true
 				MousePos = Input.Position
 				FramePos = Main.Position
@@ -2404,7 +2404,7 @@ function RayfieldLibrary:CreateWindow(Settings)
 			main.Saturation.Show.BackgroundColor3 = Color3.fromHSV(hue, 1, value)
 
 			main.Hue.InputBegan:Connect(function(input)
-				if input.UserInputType == Enum.UserInputType.MouseButton1 then
+				if input.UserInputType == Enum.UserInputType.MouseButton1 or Input.UserInputType == Enum.UserInputType.Touch  then
 					local left = main.Hue.AbsolutePosition.X
 					local right = left + main.Hue.AbsoluteSize.X
 					local barsize = main.Hue.AbsoluteSize.X
@@ -2433,7 +2433,7 @@ function RayfieldLibrary:CreateWindow(Settings)
 			end)
 
 			main.Saturation.InputBegan:Connect(function(input)
-				if input.UserInputType == Enum.UserInputType.MouseButton1 then
+				if input.UserInputType == Enum.UserInputType.MouseButton1 or Input.UserInputType == Enum.UserInputType.Touch then
 					local left = main.Saturation.AbsolutePosition.X
 					local right = left + main.Saturation.AbsoluteSize.X
 					local barsize = main.Saturation.AbsoluteSize.X
