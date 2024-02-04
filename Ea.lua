@@ -1,4 +1,5 @@
-warn("newest ui")
+
+
 --[[
 
 Rayfield Interface Suite
@@ -11,13 +12,11 @@ iRay  | Programming
 
 
 _G.Theme = _G.RayfieldTheme or _G.Theme
-
 local Release = "Beta 7R"
 local NotificationDuration = 6.5
 local RayfieldFolder = "Rayfield"
 local ConfigurationFolder = RayfieldFolder.."/Configurations"
 local ConfigurationExtension = ".rfld"
-
 
 local RayfieldLibrary = {
 	Flags = {},
@@ -69,46 +68,50 @@ local RayfieldLibrary = {
 			PlaceholderColor = Color3.fromRGB(178, 178, 178)
 		},
 		Red = {
-		  TextFont = "Default", -- Default will use the various font faces used across Rayfield
-									TextColor = Color3.fromRGB(240, 240, 240),
-						      SearchIcon = Color3.fromRGB(240, 240, 240),
-						      XIcon = Color3.fromRGB(240, 240, 240),
-						      Divider = Color3.fromRGB(255,255,255),
-						      LoadingBackground = Color3.fromRGB(25, 25, 25),
-									Background = Color3.fromRGB(25, 25, 25),
-									Topbar = Color3.fromRGB(150,0,0),
-									Shadow = Color3.fromRGB(20, 20, 20),
-						
-									NotificationBackground = Color3.fromRGB(20, 20, 20),
-									NotificationActionsBackground = Color3.fromRGB(230, 230, 230),
-						
-									TabBackground = Color3.fromRGB(80, 80, 80),
-									TabStroke = Color3.fromRGB(85, 85, 85),
-									TabBackgroundSelected = Color3.fromRGB(210, 210, 210),
-									TabTextColor = Color3.fromRGB(240, 240, 240),
-									SelectedTabTextColor = Color3.fromRGB(50, 50, 50),
-						
-									ElementBackground = Color3.fromRGB(35, 35, 35),
-									ElementBackgroundHover = Color3.fromRGB(40, 40, 40),
-									SecondaryElementBackground = Color3.fromRGB(25, 25, 25), -- For labels and paragraphs
-									ElementStroke = Color3.fromRGB(50, 50, 50),
-									SecondaryElementStroke = Color3.fromRGB(40, 40, 40), -- For labels and paragraphs
-						
-									SliderBackground = Color3.fromRGB(150,0,0),
-									SliderProgress = Color3.fromRGB(150,0,0),
-									SliderStroke = Color3.fromRGB(120,0,0),
-						
-									ToggleBackground = Color3.fromRGB(30, 30, 30),
-									ToggleEnabled = Color3.fromRGB(0,0,200),
-									ToggleDisabled = Color3.fromRGB(46,46,46),
-									ToggleEnabledStroke = Color3.fromRGB(0,0,200),
-									ToggleDisabledStroke = Color3.fromRGB(46,46,46),
-									ToggleEnabledOuterStroke = Color3.fromRGB(46,46,46),
-									ToggleDisabledOuterStroke = Color3.fromRGB(46,46,46),
-						
-									InputBackground = Color3.fromRGB(30, 30, 30),
-									InputStroke = Color3.fromRGB(65, 65, 65),
-									PlaceholderColor = Color3.fromRGB(178, 178, 178)
+			TextFont = "Default", -- Default will use the various font faces used across Rayfield
+			TextColor = Color3.fromRGB(240, 240, 240),
+
+      SearchIcon = Color3.fromRGB(240, 240, 240),
+      XIcon = Color3.fromRGB(240, 240, 240),
+
+      Divider = Color3.fromRGB(255,255,255),
+
+      LoadingBackground = Color3.fromRGB(25, 25, 25),
+
+			Background = Color3.fromRGB(25, 25, 25),
+			Topbar = Color3.fromRGB(150,0,0),
+			Shadow = Color3.fromRGB(15,15,15),
+
+			NotificationBackground = Color3.fromRGB(20, 20, 20),
+			NotificationActionsBackground = Color3.fromRGB(230, 230, 230),
+
+			TabBackground = Color3.fromRGB(80, 80, 80),
+			TabStroke = Color3.fromRGB(150,0,0),
+			TabBackgroundSelected = Color3.fromRGB(210, 210, 210),
+			TabTextColor = Color3.fromRGB(240, 240, 240),
+			SelectedTabTextColor = Color3.fromRGB(50, 50, 50),
+
+			ElementBackground = Color3.fromRGB(35, 35, 35),
+			ElementBackgroundHover = Color3.fromRGB(40, 40, 40),
+			SecondaryElementBackground = Color3.fromRGB(25, 25, 25), -- For labels and paragraphs
+			ElementStroke = Color3.fromRGB(150,0,0),
+			SecondaryElementStroke = Color3.fromRGB(150,0,0), -- For labels and paragraphs
+
+			SliderBackground = Color3.fromRGB(43, 105, 159),
+			SliderProgress = Color3.fromRGB(43, 105, 159),
+			SliderStroke = Color3.fromRGB(150,0,0),
+
+			ToggleBackground = Color3.fromRGB(30, 30, 30),
+			ToggleEnabled = Color3.fromRGB(0, 146, 214),
+			ToggleDisabled = Color3.fromRGB(100, 100, 100),
+			ToggleEnabledStroke = Color3.fromRGB(0, 170, 255),
+			ToggleDisabledStroke = Color3.fromRGB(125, 125, 125),
+			ToggleEnabledOuterStroke = Color3.fromRGB(150,0,0),
+			ToggleDisabledOuterStroke = Color3.fromRGB(150,0,0),
+
+			InputBackground = Color3.fromRGB(30, 30, 30),
+			InputStroke = Color3.fromRGB(65, 65, 65),
+			PlaceholderColor = Color3.fromRGB(178, 178, 178)
 			}, 
 		Light = {
 			TextFont = "Gotham",  -- Default will use the various font faces used across Rayfield
@@ -253,18 +256,14 @@ local RayfieldLibrary = {
 
 
 -- Services
-
 local UserInputService = game:GetService("UserInputService")
 local TweenService = game:GetService("TweenService")
 local HttpService = game:GetService("HttpService")
 local RunService = game:GetService("RunService")
 local Players = game:GetService("Players")
 local CoreGui = game:GetService("CoreGui")
-
 -- Interface Management
-
 local Rayfield =  game:GetObjects("rbxassetid://15715045014")[1] --14412610844
-
 --studio
 --function gethui() return Rayfield end local http_request = nil local syn = {protect_gui = false,request = false,}local http = nil function writefile(tt,t,ttt)end function isfolder(t)end function makefolder(t)end function isfile(r)end function readfile(t)end
 
@@ -312,11 +311,8 @@ local SearchBar = Main.Searchbar
 local Filler = SearchBar.CanvasGroup.Filler
 local Prompt = Main.Prompt
 
-
 Rayfield.DisplayOrder = 100
 LoadingFrame.Version.Text = Release
-
-
 
  --Variables
 
@@ -2744,6 +2740,16 @@ function RayfieldLibrary:Destroy()
 	Rayfield:Destroy()
 end
 
+function RayfieldLibrary:HideGui()
+ for _,v in pairs(gethui():GetChildren()) do 
+  if v.Name == Rayfield and v == Rayfield and not v.Enabled then 
+    v.Enabled = true 
+   else 
+    v.Enabled = false
+  end
+ end
+end 
+
 Topbar.ChangeSize.MouseButton1Click:Connect(function()
 	if Debounce then return end
 	if Minimised then
@@ -2755,6 +2761,7 @@ Topbar.ChangeSize.MouseButton1Click:Connect(function()
 		Minimise()
 	end
 end)
+
 Topbar.Search.MouseButton1Click:Connect(function()
 	if Debounce or Minimised then return end
 	if SearchHided then
@@ -2807,6 +2814,7 @@ for _, TopbarButton in ipairs(Topbar:GetChildren()) do
 		end)
 	end
 end
+
 
 
 function RayfieldLibrary:LoadConfiguration()
