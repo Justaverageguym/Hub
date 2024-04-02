@@ -14,8 +14,8 @@ local rs = game:GetService("RunService")
 
 task.spawn(function()
 local Window = rayfield:CreateWindow({
-   Name = "Rayfield Example Window",
-   LoadingTitle = "Rayfield Interface Suite",
+   Name = "Periastron Stars RPG",
+   LoadingTitle = "......",
    LoadingSubtitle = "by Sirius",
    ConfigurationSaving = {
       Enabled = true,
@@ -39,6 +39,7 @@ local Window = rayfield:CreateWindow({
    }
 })
 local Tab = Window:CreateTab("Main", 4483362458) 
+local Section = Tab:CreateSection("Main")
 local godmode,godmll,godmlll,killaura,killaural,killaurarange = nil,nil,nil,nil,nil,30
 local Toggle = Tab:CreateToggle({
    Name = "Kill-aura",
@@ -74,7 +75,7 @@ local Toggle = Tab:CreateToggle({
 
 local Slider = Tab:CreateSlider({
    Name = "Kill-Aura range",
-   Range = {0, 100},
+   Range = {0, 215},
    Increment = 1,
    Suffix = "Distances",
    CurrentValue = 30,
@@ -153,7 +154,5 @@ local Button = Tab:CreateButton({
      end)
    end,
 })
- end)
+  end)
 end)
-
-
