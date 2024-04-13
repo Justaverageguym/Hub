@@ -40,7 +40,7 @@ local Window = rayfield:CreateWindow({
 })
 local Tab = Window:CreateTab("Main", 4483362458) 
 local Section = Tab:CreateSection("Main")
-local autoclicker,autoclick,autoopen,autopenselected,autopopen,egglist,hatchshitidk = nil,nil,nil,nil,nil,"None",nil,{"None"},"Single"
+local autoclicker,autoclick,autoopen,autopenselected,autopopen,egglist,hatchshitidk,petname,petnamell,petnamel = nil,nil,nil,"None",nil,{"None"},"Single",nil,nil,nil
 local Toggle = Tab:CreateToggle({
    Name = "Auto-click",
    CurrentValue = false,
@@ -61,10 +61,17 @@ local Toggle = Tab:CreateToggle({
     end
    end,
 })
-
+local Button = Tab:CreateButton({
+   Name = "Rebirth",
+   Callback = function()
+    task.spawn(function()
+ game:GetService("ReplicatedStorage").Remotes.Rebirth:FireServer()
+    end)
+   end,
+})
 task.spawn(function()
-for _,v in pairs(ws.Map.Eggs:GetChildren()) do 
- if v:IsA("Model") then
+for _,v in pairs(game:GetService("ReplicatedStorage").Eggs:GetChildren()) do 
+ if v:IsA("Folder") then
   table.insert(egglist,v.Name)
  end
 end
@@ -79,7 +86,7 @@ local Dropdown = Tab:CreateDropdown({
    end,
 })
 local Dropdown = Tab:CreateDropdown({
-   Name = "(Idk what to name it)",
+   Name = "Hatch mode",
    Options = {"Single","Triple"},
    CurrentOption = "Single",
    Flag = "eKey", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
@@ -87,8 +94,23 @@ local Dropdown = Tab:CreateDropdown({
      hatchshitidk = Option
    end,
 })
+local Button = Tab:CreateButton({
+   Name = "Hatch selected egg",
+   Callback = function()
+    task.spawn(function()
+if autopenselected ~= "None" then
+    local args = {
+        [1] = tostring(autopenselected),
+        [2] = hatchshitidk == "Single" and 1 or hatchshitidk == "Triple" and 3
+      }
+
+game:GetService("ReplicatedStorage").Remotes.Egg:InvokeServer(unpack(args))
+     end
+    end)
+   end,
+})
 local Toggle = Tab:CreateToggle({
-   Name = "AutoOpen selected egg",
+   Name = "Auto-hatch selected egg",
    CurrentValue = false,
    Flag = "Autopen", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
    Callback = function(Value)
@@ -114,6 +136,64 @@ game:GetService("ReplicatedStorage").Remotes.Egg:InvokeServer(unpack(args))
     end
    end,
 })
+local Input = Tab:CreateInput({
+   Name = "Pet name",
+   PlaceholderText = "Nig",
+   RemoveTextAfterFocusLost = true,
+   Callback = function(Text)
+   petname = Text
+   end,
+})
+local Button = Tab:CreateButton({
+   Name = "Delete all pets with exact name as pet name",
+   Callback = function()
+    task.spawn(function()
+     if petname then
+      for _,v in next,cl.Data.Pets:GetChildren() do 
+        if v:IsA("Folder") and v:FindFirstChild("PetName") and v:FindFirstChild("PetName").Value:lower() == petname then
+        local args = {
+    [1] = "Delete",
+    [2] = v.Name
+}
+
+game:GetService("ReplicatedStorage").Remotes.Pet:FireServer(unpack(args))
+       end
+      end
+      end
+    end)
+   end,
+})
+local Toggle = Tab:CreateToggle({
+   Name = "Auto-delete pets with exact name as pet name",
+   CurrentValue = false,
+   Flag = "Autodel", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(Value)
+    petnamel = Value 
+  if petnamel then 
+   petnamell = rs.Stepped:Connect(function()
+    task.spawn(function()
+  if petname then
+      for _,v in next,cl.Data.Pets:GetChildren() do 
+        if v:IsA("Folder") and v:FindFirstChild("PetName") and v:FindFirstChild("PetName").Value:lower() == petname then
+        local args = {
+    [1] = "Delete",
+    [2] = v.Name
+}
+
+game:GetService("ReplicatedStorage").Remotes.Pet:FireServer(unpack(args))
+       end
+      end
+        end
+      end)
+   end)
+  else 
+    if petnamell then
+      petnamell:Disconnect() 
+      petnamell = nil 
+     end
+    end
+   end,
+})
 local Button = Tab:CreateButton({
    Name = "Free badges",
    Callback = function()
@@ -129,3 +209,4 @@ local Button = Tab:CreateButton({
 })
  end)
 end)
+
