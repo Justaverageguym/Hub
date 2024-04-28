@@ -256,7 +256,7 @@ local Button = Tab:CreateButton({
  end,
 })
 
-local items = {"None","High Caliber Turret,","Ultra Turret"}
+local items = {"None","High Caliber Turret","Ultra Turret"}
 local selecteditem = "None"
 for _,v in next,game:GetService("ReplicatedStorage").Structs:GetChildren() do 
   if v:FindFirstChild("ItemName") and v:FindFirstChild("StructData") and not table.find(items,v:FindFirstChild("ItemName").Value) then 
