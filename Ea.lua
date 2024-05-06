@@ -422,7 +422,7 @@ local function LoadConfiguration(Configuration)
 end
 
 local function SaveConfiguration()
-	warn("called")
+	
 	if not CEnabled then return end
 	local Data = {}
 	for i,v in pairs(RayfieldLibrary.Flags) do
@@ -432,7 +432,7 @@ local function SaveConfiguration()
 			Data[i] = v.CurrentValue or v.CurrentKeybind or v.CurrentOption
 		end
 	end	
-	print("Saving")
+	
 	writefile(ConfigurationFolder .. "/" .. CFileName .. ConfigurationExtension, tostring(HttpService:JSONEncode(Data)))
 end
 
@@ -984,6 +984,7 @@ SearchBar.Input:GetPropertyChangedSignal('Text'):Connect(function()
 		end
 	end
 end)
+
 SearchBar.Clear.MouseButton1Down:Connect(function()
 	Filler.Position = UDim2.new(0.957,0,.5,0)
 	Filler.Size = UDim2.new(0,1,0,1)
@@ -2253,7 +2254,7 @@ function RayfieldLibrary:CreateWindow(Settings)
 
 			Toggle.Interact.MouseButton1Click:Connect(function()
 
-				print("toggle touched !!!")
+				
 
 				if ToggleSettings.CurrentValue then
 					ToggleSettings.CurrentValue = false
@@ -2814,8 +2815,6 @@ for _, TopbarButton in ipairs(Topbar:GetChildren()) do
 		end)
 	end
 end
-
-
 
 function RayfieldLibrary:LoadConfiguration()
 	if CEnabled then
