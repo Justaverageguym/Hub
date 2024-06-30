@@ -1117,6 +1117,7 @@ function Minimise()
 	Debounce = false
 end
 
+
 function RayfieldLibrary:CreateWindow(Settings)
 	local Passthrough = false
 	Topbar.Title.Text = Settings.Name
@@ -1408,6 +1409,41 @@ function RayfieldLibrary:CreateWindow(Settings)
 
 	Elements.UIPageLayout.FillDirection = Enum.FillDirection.Horizontal
 	TabList.Template.Visible = false
+local FieldScreen = Instance.new("ScreenGui")
+FieldScreen.DisplayOrder = 100
+FieldScreen.ScreenInsets = Enum.ScreenInsets.DeviceSafeInsets
+FieldScreen.Name = "Uni" .. tostring(math.random(1000,9999))
+FieldScreen.Parent = gethui and gethui() or game:GetService("CoreGui")
+
+local UniButton = Instance.new("ImageLabel")
+UniButton.Name = "UniButton"
+UniButton.Image = "rbxassetid://14958620447"
+UniButton.Active = false
+--UniButton.AnchorPoint = Vector2.new(0.5,0.5)
+UniButton.ZIndex = 10
+UniButton.Position = UDim2.new(0.8,0,0,0)
+UniButton.BorderSizePixel = 0
+UniButton.BackgroundTransparency = 1
+UniButton.Size = UDim2.new(0, 42, 0, 42)
+UniButton.SizeConstraint = Enum.SizeConstraint.RelativeXY
+UniButton.Parent = FieldScreen
+
+local UniBoxButton = Instance.new("TextButton")
+UniBoxButton.Name = "UniBoxButton"
+--UniBoxButton.AnchorPoint = Vector2.new(0.5,0.5)
+UniBoxButton.ZIndex = 10
+UniBoxButton.AnchorPoint = Vector2.new(0.5, 0)
+UniBoxButton.Position = UDim2.new(0.5, 0, 0, 0)
+UniBoxButton.Size = UDim2.new(0, 42+21, 0, 42)
+UniBoxButton.BorderSizePixel = 0
+UniBoxButton.BackgroundTransparency = 1
+UniBoxButton.Text = ""
+UniBoxButton.SizeConstraint = Enum.SizeConstraint.RelativeXY
+UniBoxButton.Parent = UniButton
+
+UniBoxButton.MouseButton1Click:Connect(function()
+ game:GetService("VirtualInputManager"):SendKeyEvent(true,Enum.KeyCode.M,false,game)
+end)
 
 	-- Tab
 	local FirstTab = false
