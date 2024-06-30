@@ -2823,7 +2823,7 @@ Topbar.Hide.MouseButton1Click:Connect(function()
 end)
 
 UserInputService.InputBegan:Connect(function(input, processed)
-	if (input.KeyCode == Enum.KeyCode.Tab and processed) then
+	if (input.KeyCode == Enum.KeyCode.M and processed) then
 		if Debounce then return end
 		if Hidden then
 			Hidden = false
