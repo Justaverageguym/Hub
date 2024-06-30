@@ -1442,7 +1442,11 @@ UniBoxButton.SizeConstraint = Enum.SizeConstraint.RelativeXY
 UniBoxButton.Parent = UniButton
 
 UniBoxButton.MouseButton1Click:Connect(function()
- game:GetService("VirtualInputManager"):SendKeyEvent(true,Enum.KeyCode.M,false,game)
+ if Main.Visible then
+  Hide() 
+ else 
+  Unhide()
+ end
 end)
 
 	-- Tab
