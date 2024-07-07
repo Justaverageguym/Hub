@@ -81,27 +81,41 @@ local function GetTextBounds(Text,Font,Size)
 	return TextService:GetTextSize(Text,Size.Y,Font,Vector2.new(Size.X,1e6))
 end
 
-local function MakeDraggable(Dragger,Object,OnTick,OnStop)
-	local StartPosition,StartDrag = nil,nil
-	Dragger.InputBegan:Connect(function(Input)
-		if Input.UserInputType == Enum.UserInputType.MouseButton1 or Input.UserInputType == Enum.UserInputType.Touch then
-			StartPosition = UserInputService:GetMouseLocation()
-			StartDrag = Object.AbsolutePosition
-		end
-	end)
-	UserInputService.InputChanged:Connect(function(Input)
-		if StartDrag and (Input.UserInputType == Enum.UserInputType.MouseMovement or Input.UserInputType == Enum.UserInputType.Touch) then
-			local Mouse = UserInputService:GetMouseLocation()
-			local Delta = Mouse - StartPosition StartPosition = Mouse
-			OnTick(Object.Position + UDim2.fromOffset(Delta.X,Delta.Y))
-		end
-	end)
-	Dragger.InputEnded:Connect(function(Input)
-		if Input.UserInputType == Enum.UserInputType.MouseButton1 or Input.UserInputType == Enum.UserInputType.Touch  then
-			StartPosition,StartDrag = nil,nil
-			if OnStop then OnStop(Object.Position) end
-		end
-	end)
+local function MakeDraggable(Dragger, Object, OnTick, OnStop)
+    local StartPosition, StartDrag = nil, nil
+    local dragging = false
+
+    Dragger.InputBegan:Connect(function(Input)
+        if Input.UserInputType == Enum.UserInputType.MouseButton1 or Input.UserInputType == Enum.UserInputType.Touch then
+            dragging = true
+            StartPosition = UserInputService:GetMouseLocation()
+            StartDrag = Object.AbsolutePosition
+        end
+    end)
+
+    UserInputService.InputChanged:Connect(function(Input)
+        if dragging and (Input.UserInputType == Enum.UserInputType.MouseMovement or Input.UserInputType == Enum.UserInputType.Touch) then
+            local Mouse = UserInputService:GetMouseLocation()
+            local Delta = Mouse - StartPosition
+            StartPosition = Mouse
+            Object.Position = UDim2.new(Object.Position.X.Scale, Object.Position.X.Offset + Delta.X, Object.Position.Y.Scale, Object.Position.Y.Offset + Delta.Y)
+            if OnTick then
+                OnTick(Object.Position)
+            end
+        end
+    end)
+
+    UserInputService.InputEnded:Connect(function(Input)
+        if Input.UserInputType == Enum.UserInputType.MouseButton1 or Input.UserInputType == Enum.UserInputType.Touch then
+            if dragging then
+                dragging = false
+                StartPosition, StartDrag = nil, nil
+                if OnStop then
+                    OnStop(Object.Position)
+                end
+            end
+        end
+    end)
 end
 local function MakeResizeable(Dragger,Object,MinSize,OnTick,OnStop)
 	local StartPosition,StartSize = nil,nil
@@ -241,9 +255,6 @@ function Assets:Window(ScreenAsset,Window)
 	MakeDraggable(WindowAsset.Drag,WindowAsset,function(Position)
 		Window.Position = Position
 	end)
-	MakeDraggable(Window,function(Position)
-	  Window.Position = Position
-  end)
 	MakeResizeable(WindowAsset.Resize,WindowAsset,Vector2.new(296,296),function(Size)
 		Window.Size = Size
 	end)
