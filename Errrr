@@ -15,7 +15,7 @@ local fart = part:FindFirstChildOfClass("TouchTransmitter") and part
  end
 end
 
-local var = {tool,autokill, autokillm} 
+local var = {tool,autokill, autokillm,autoproject,autoprokectl} 
   lc.DescendantAdded:Connect(function(v)
     if v:IsA("TouchTransmitter") and v:IsDescendantOf(lc:FindFirstChildOfClass("Tool")) then 
        var.tool = v.Parent
@@ -27,24 +27,29 @@ local var = {tool,autokill, autokillm}
     end
   end)
 lp.CharacterAdded:Connect(function(m)
+  var.tool = nil
   m.DescendantAdded:Connect(function(v)
     if v:IsA("TouchTransmitter") and v:IsDescendantOf(lc:FindFirstChildOfClass("Tool")) then 
        var.tool = v.Parent
     end
   end)
-
+  lc.ChildRemoved:Connect(function(v)
+    if v:IsA("Tool") then 
+      var.tool = nil
+    end
+  end)
 end)
 local Library = loadstring(Game:HttpGet("https://raw.githubusercontent.com/bloodball/-back-ups-for-libs/main/wizard"))()
 local PhantomForcesWindow = Library:NewWindow("er")
 local KillingCheats = PhantomForcesWindow:NewSection("er")
-
+ 
 KillingCheats:CreateToggle("Hit aura", function(value)
     var.autokill = value
     if var.autokill then
         var.autokillm = rs.Stepped:Connect(function()
             spawn(function()
                 if lc and lc:FindFirstChild("HumanoidRootPart") then
-                    local closestMonster
+                   local closestMonster
                     local shortestDistance = math.huge
 
                     for _, v in next, ws:GetChildren() do
