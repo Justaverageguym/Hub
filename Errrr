@@ -1,0 +1,76 @@
+local game = game
+local gs = game.GetService
+local ws = gs(game,"Workspace")
+local rs,cam,pl,ts,rst,lg,ss = gs(game,"RunService"),ws.CurrentCamera,gs(game,"Players"),gs(game,"TweenService"),gs(game,"ReplicatedStorage"),gs(game,"Lighting"),gs(game,"Stats")
+local lp,lc = pl.LocalPlayer,pl.LocalPlayer.Character or pl.LocalPlayer.CharacterAdded:Wait()
+local delay,next,pcall,loadstring,typeof,tostring,wait,spawn,select = task.delay,next,pcall,loadstring,typeof,tostring,task.wait,task.spawn,select
+local mathfloor,tablefind,tablesort,stringgsub, stringmatch, stringbyte = math.floor,table.find,table.sort,string.gsub, string.match, string.byte
+
+--Connections/Functions
+Firetouch = function(part,touched) 
+ if part and touched then 
+local fart = part:FindFirstChildOfClass("TouchTransmitter") and part
+ firetouchinterest(fart,touched,0)
+ firetouchinterest(fart,touched,1)
+ end
+end
+
+local var = {tool,autokill, autokillm} 
+  lc.DescendantAdded:Connect(function(v)
+    if v:IsA("TouchTransmitter") and v:IsDescendantOf(lc:FindFirstChildOfClass("Tool")) then 
+       var.tool = v.Parent
+    end
+  end)
+  lc.ChildRemoved:Connect(function(v)
+    if v:IsA("Tool") then 
+      var.tool = nil
+    end
+  end)
+lp.CharacterAdded:Connect(function(m)
+  m.DescendantAdded:Connect(function(v)
+    if v:IsA("TouchTransmitter") and v:IsDescendantOf(lc:FindFirstChildOfClass("Tool")) then 
+       var.tool = v.Parent
+    end
+  end)
+
+end)
+local Library = loadstring(Game:HttpGet("https://raw.githubusercontent.com/bloodball/-back-ups-for-libs/main/wizard"))()
+local PhantomForcesWindow = Library:NewWindow("er")
+local KillingCheats = PhantomForcesWindow:NewSection("er")
+
+KillingCheats:CreateToggle("Hit aura", function(value)
+    var.autokill = value
+    if var.autokill then
+        var.autokillm = rs.Stepped:Connect(function()
+            spawn(function()
+                if lc and lc:FindFirstChild("HumanoidRootPart") then
+                    local closestMonster
+                    local shortestDistance = math.huge
+
+                    for _, v in next, ws:GetChildren() do
+                        if v:IsA("Model") and v:FindFirstChild("Config") and v:FindFirstChild("Config"):FindFirstChild("FollowDistance") and v:FindFirstChildOfClass("Humanoid") and v:FindFirstChildOfClass("Humanoid").Health > 0 then
+                            local vHumanoidRootPart = v:FindFirstChild("HumanoidRootPart")
+                            if vHumanoidRootPart then
+                                local distance = (lc:FindFirstChild("HumanoidRootPart").Position - vHumanoidRootPart.Position).magnitude
+                                if distance < shortestDistance then
+                                    shortestDistance = distance
+                                    closestMonster = v
+                                end
+                            end
+                        end
+                    end
+
+                    if closestMonster and lc:FindFirstChildOfClass("Tool") and var.tool then
+                        lc:FindFirstChildOfClass("Tool"):Activate()
+                        Firetouch(var.tool, closestMonster:FindFirstChild("HumanoidRootPart"))
+                    end
+                end
+            end)
+        end)
+    else
+        if var.autokillm then
+            var.autokillm:Disconnect()
+            var.autokillm = nil
+        end
+    end
+end)
