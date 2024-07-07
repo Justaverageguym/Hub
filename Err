@@ -315,23 +315,8 @@ function Assets:Window(ScreenAsset,Window)
 		Watermark.Enabled = GetType(Watermark.Enabled,false,"boolean")
 		Watermark.Title = GetType(Watermark.Title,"Hello World!","string")
 		Watermark.Flag = GetType(Watermark.Flag,"UI/Watermark/Position","string")
-
 		ScreenAsset.Watermark.Visible = Watermark.Enabled
-local temp
-  temp = RunService.Stepped:Connect(function()
-	 task.spawn(function()
-	 if Watermark.Enabled then
-	  task.delay(1.2,function()
 		ScreenAsset.Watermark.Text = Watermark.Title
-	  	 end)
-		 end
-		end)
-	if not Window then 
-    temp:Disconnect() 
-    temp = nil
-   end
-	end)
-
 		ScreenAsset.Watermark.Size = UDim2.fromOffset(
 			ScreenAsset.Watermark.TextBounds.X + 6,
 			ScreenAsset.Watermark.TextBounds.Y + 6
