@@ -319,7 +319,7 @@ function Assets:Window(ScreenAsset,Window)
 		ScreenAsset.Watermark.Text = Watermark.Title
 		ScreenAsset.Watermark.Size = UDim2.fromOffset(
 			ScreenAsset.Watermark.TextBounds.X + 6,
-			ScreenAsset.Watermark.TextBounds.Y + 6
+			ScreenAsset.Watermark.TextBounds.Y + 7.5
 		)
 
 		MakeDraggable(ScreenAsset.Watermark,ScreenAsset.Watermark,function(Position)
