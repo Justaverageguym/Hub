@@ -241,10 +241,13 @@ function Assets:Window(ScreenAsset,Window)
 	MakeDraggable(WindowAsset.Drag,WindowAsset,function(Position)
 		Window.Position = Position
 	end)
+	MakeDraggable(Window,function(Position)
+	  Window.Position = Position
+  end)
 	MakeResizeable(WindowAsset.Resize,WindowAsset,Vector2.new(296,296),function(Size)
 		Window.Size = Size
 	end)
-
+  
 	local Month = tonumber(os.date("%m"))
 	if Month == 12 or Month == 1 then task.spawn(Assets.Snowflakes,WindowAsset) end
 	WindowAsset.TabButtonContainer.ListLayout:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(function()
@@ -319,7 +322,7 @@ function Assets:Window(ScreenAsset,Window)
 		ScreenAsset.Watermark.Text = Watermark.Title
 		ScreenAsset.Watermark.Size = UDim2.fromOffset(
 			ScreenAsset.Watermark.TextBounds.X + 6,
-			ScreenAsset.Watermark.TextBounds.Y + 7.5
+			ScreenAsset.Watermark.TextBounds.Y + 8.2
 		)
 
 		MakeDraggable(ScreenAsset.Watermark,ScreenAsset.Watermark,function(Position)
