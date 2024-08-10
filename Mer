@@ -481,7 +481,7 @@ function Library:create(options)
 
 	do
 		local S, Event = pcall(function()
-			return core.MouseEnter or core.TouchStarted
+			return core.MouseEnter
 		end)
 
 		if S then
